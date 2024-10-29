@@ -5,17 +5,19 @@ import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 import moment from "moment";
 
+type CardType = "Humo" | "Uzcard" | "Visa" | null; // Define the CardType
+
 function Cart() {
     const context = useContext(ReducerContext);
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
-    const [cardType, setCardType] = useState(null);
+    const [cardType, setCardType] = useState<CardType>(null); // Use CardType here
 
     const showModal = () => {
         setOpen(true);
     };
 
-    const handleOk = async (values : {value: any}) => {
+    const handleOk = async (values: { value: any }) => {
         try {
             const response = await fetch("https://7d0c8a116a02469c.mokky.dev/category", {
                 method: "POST",
@@ -51,16 +53,16 @@ function Cart() {
         showModal();
     };
 
-    const detectCardType = (cardNumber) : any => {
+    const detectCardType = (cardNumber: string): CardType => {
         if (cardNumber.startsWith("9860")) return "Humo";
         if (cardNumber.startsWith("8600")) return "Uzcard";
         if (cardNumber.startsWith("4") || cardNumber.startsWith("5")) return "Visa";
-        return null;
+        return null; // Return null for unrecognized card types
     };
 
-    const handleCardInputChange = (e) => {
-        const value = e.target.value.replace(/\D/g, "");
-        setCardType(detectCardType(value));
+    const handleCardInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value.replace(/\D/g, ""); // Strip non-digit characters
+        setCardType(detectCardType(value)); // Detect and set the card type
     };
 
     return (
