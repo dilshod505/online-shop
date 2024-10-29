@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Button, Card, Col, Row} from "antd";
+import { Card, Col, Row} from "antd";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import {FaRegHeart} from "react-icons/fa6";
@@ -36,17 +36,15 @@ function CategoryId() {
                             <h1>{item.name}</h1>
                             <span className={'text-[18px]'}>${item.price}</span>
                             <div className={'flex justify-between gap-3'}>
-                                <Button type="primary"
+                                <button type="submit"
                                         onClick={() => {
                                             dispatch({
                                                 type: 'ADD_TO_CART',
                                                 payload: item,
                                             })
                                             toastSuccess("Added the card")
-                                        }}
-                                        className={'mt-10 bg-amber-500 w-full'}>В
-                                    корзину</Button>
-                                <Button type="primary" className={'mt-10 bg-amber-500'}
+                                        }} className={'mt-5 bg-blue-500 px-10 py-1 rounded-md text-white'}>В корзину</button>
+                                <button type="submit" className={'mt-5 bg-yellow-400 px-4 py-1 rounded-md text-white'}
                                         onClick={() => {
                                             dispatch({
                                                 type: 'ADD_TO_FAVORITE',
@@ -55,7 +53,7 @@ function CategoryId() {
                                             toastSuccess("Added to favorites")
                                         }}>
                                     <FaRegHeart/>
-                                </Button>
+                                </button>
                             </div>
                         </Card>
                     </Col>
