@@ -1,25 +1,21 @@
-import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import {useLocationParams} from "./useLocationParams.tsx";
 
-function UseAuth() {
-    const { pathname } = useLocation();
-    const [isAuth, setIsAuthState] = useState<boolean>(
-        !!localStorage.getItem('token')
+const useAuth = () => {
+    const {pathname} = useLocationParams()
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+        !!localStorage.getItem("token")
     );
-
     useEffect(() => {
-        setIsAuthState(!!localStorage.getItem('token'));
-        [isAuth, pathname].forEach((item) => {
-            console.log(item);
-        })
-    }, [pathname]);
+        setIsAuthenticated(!!localStorage.getItem("token"))
+    }, [isAuthenticated, pathname]);
 
-    const setIsAuth = (value: boolean) => {
-        setIsAuthState(value);
-        localStorage.setItem('token', value ? 'true' : 'false');
-    }
+    const setAuthenticated = (value: boolean) => {
+        setIsAuthenticated(value);
+        localStorage.setItem("token", JSON.stringify(value));
+    };
 
-    return { isAuth, setIsAuth }
-}
+    return { isAuthenticated, setAuthenticated };
+};
 
-export default UseAuth;
+export default useAuth;
