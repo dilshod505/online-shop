@@ -15,7 +15,7 @@ export const useRouterPush = () => {
   const { pathname } = useLocation();
   const { query: params } = useLocationParams();
 
-  const stringifyQuery = useCallback((url: string, query: Record<string, any>) => {
+  const stringifyQuery = useCallback((query: Record<string, any>) => {
     return queryString.stringify(query, stringifyOptions);
   }, []);
 
